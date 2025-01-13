@@ -54,7 +54,9 @@ if __name__ == "__main__":
 
         
         if result.returncode != 0:
-            return jsonify({"error to": result.stderr}), 400
+            errorIndex = result.stderr.find("Traceback (most recent call last)")
+
+            return jsonify({"error": result.stderr}), 400
 
         output = result.stdout.strip()
         return jsonify({"result": json.loads(output)})
